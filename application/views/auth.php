@@ -34,23 +34,51 @@ function renderError($fieldName)
     </div>
   </div>
 
-  <script >
-    let formType = "LOGIN";
-    let fields = {
-      firstName: renderField("firstName", "First Name", "text", "Enter your first name"),
-      lastName: renderField("lastName", "Last Name", "text", "Enter your last name"),
-      email: renderField("email", "Email", "email", "Enter your email"),
-      password : renderField("password", "Password", "password", "Enter your password"),
-      password2 : renderField("password", "Re-type Password", "password", "Re-type  password"),
-      button : renderButton(),
+  <script>
+    let form = {
+      type: "LOGIN",
+      firstName: {
+        value: "",
+        element: generateInputGroup("firstName", "First Name", "text", "Enter your first name"),
+      },
+      lastName: {
+        value: "",
+        element: generateInputGroup("lastName", "Last Name", "text", "Enter your last name"),
+      },
+      email: {
+        value: "",
+        element: generateInputGroup("email", "Email", "email", "Enter your email"),
+      },
+      password: {
+        value: "",
+        element: generateInputGroup("password", "Password", "password", "Enter your password"),
+      },
+      password2: {
+        value: "",
+        element: generateInputGroup("password", "Re-type Password", "password", "Re-type  password"),
+      },
+     
+      init: function() {
+        console.log("65")
+        document.querySelector("form").append(
+          this.firstName.element, this.lastName.element, this.email.element, this.password.element, this.password2.element,renderSwitcher(), this.button.render()
+        )
+      },
+      render: function() {
+        let arr = [this.firstName.element, this.lastName.element, this.email.element, this.password, this.password2]
+        for (let el of arr) {
+          el.style.display = this.type == "REGISTER" ? "block" : "none"
+        }
+      },
+      switch: function() {
+        this.type = this.type == "LOGIN" ? "REGISTER" : "LOGIN"
+        this.render();
+      }
+
     }
 
-    function swithForm() {
-      formType = formType == "LOGIN" ? "REGISTER" : "LOGIN"
-      renderForm()
-    }
 
-    function renderField(inputName, labelText, inputType = "text", placeholder) {
+    function generateInputGroup(inputName, labelText, inputType = "text", placeholder) {
       if (!placeholder) placeholder = "Enter your " + labelText.toLowerCase();
       let div = document.createElement('div')
       let label = document.createElement('label')
@@ -60,6 +88,10 @@ function renderError($fieldName)
       input.type = inputType
       input.name = inputName
       input.placeholder = placeholder
+      input.onchange = function(e) {
+        console.log("i changed")
+        fields[name].value = document.forms[0].inputName.value
+      }
       input.classList = "form-control"
       div.append(label, input)
       return div
@@ -70,16 +102,19 @@ function renderError($fieldName)
     }
 
     //dynamic
-    function renderSwitcher(){
+
+
+
+    function renderSwitcher() {
       let div = document.createElement("div")
       let p = document.createElement("p")
       let a = document.createElement("a")
-      if (formType == "LOGIN"){
+      if (form.type == "LOGIN") {
         p.innerText = "Don't you have an account?"
         a.innerText = "Register"
-      }else if (formType == "REGISTER") {
+      } else if (form.type == "REGISTER") {
         p.innerText = "You have an account ?"
-        a.innerText = "Login" 
+        a.innerText = "Login"
       }
       a.onclick = swithForm
       p.append(a)
@@ -87,33 +122,29 @@ function renderError($fieldName)
       return div
     }
 
+    function validateWhenTyping() {
+
+    }
+
     function renderButton() {
       let btn = document.createElement('button')
       btn.type = "submit"
       btn.className = "btn btn-primary";
-      btn.innerText = formType.toLowerCase()
+      btn.innerText = form.type.toLowerCase()
       return btn
       // <button type="submit" class="btn btn-primary">Register</button>      
     }
-  
-    function renderForm() {
-      let form = document.querySelector("form")
-      form.innerHTML = ""
-      if (formType == "LOGIN") {
-        form.append(fields.email,fields.password,renderSwitcher(),renderButton())
-      } else if (formType == "REGISTER") {
-        form.append(fields.firstName,fields.lastName,fields.email,fields.password,renderSwitcher(), renderButton())
-      }
-
-    }
-
-    renderForm()
+    
 
     function handleClick() {
+
+
       fetch("/auth/login", () => {
 
       })
     }
+
+    form.init()
   </script>
 
 </body>

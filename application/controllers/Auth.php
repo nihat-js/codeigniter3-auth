@@ -16,8 +16,11 @@ class Auth extends CI_Controller {
 	}
   
   public function login(){
-    $this->load->model('user');
-    // $this->user->();
+    // $this->load->model('user');
+    // $result = $this->user->login();
+    $this->output
+        ->set_content_type('application/json')
+        ->set_output(json_encode(array('foo' => 'bar')));
 
     // echo $this->input->post("email");
   }
