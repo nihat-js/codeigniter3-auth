@@ -28,10 +28,9 @@ class Auth extends CI_Controller {
 
     $this->load->model('user');
     $result = $this->user->register($username,$email,$password);
-    if (!empty($result["hasError"])){
+    if ( count($result) > 0 ){
       $this->load->view("auth",$result);
     }
-    echo $result;
 
   }
 
