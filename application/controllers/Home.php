@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Welcome extends CI_Controller
+class Home extends CI_Controller
 {
 
 
@@ -29,24 +29,14 @@ class Welcome extends CI_Controller
 	 */
 	public function index()
 	{
-
-		$first_name = $this->session->userdata("user_firstname");
-		$last_name = $this->session->userdata("user_lastname");
-
-		$email = $this->session->userdata("user_email");
-		$token = $this->session->userdata("user_token");
+		$token = $this->session->userdata("token");
 
 		if (!$token) {
-			header("Location: /auth/");
+			echo "<script>location.href='/auth';</script>";
 			return false;
 		}
 
 
-		$this->load->view('home',[
-			"first_name" => $first_name,
-			"last_name" => $last_name,
-			"token" => $token,
-			"email" => $email,
-		]);
+		$this->load->view('home',$this->session->all_userdata());
 	}
 }

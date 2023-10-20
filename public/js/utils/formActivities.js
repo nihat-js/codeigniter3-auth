@@ -37,11 +37,11 @@ export function appendToggle(){
 	document.querySelector("form").append(div)
 }
 
-function renderToggle(isLoginLayout) {
+export function renderToggle(isLoginLayout) {
 
-	let p = document.querySelector("form .toggler p")
-	let a = document.querySelector("form .toggler a")
-
+	let p = document.querySelector("form .toggle p")
+	let a = document.querySelector("form .toggle a")
+	//
 	if (isLoginLayout) {
 		p.innerText = "Don't you have an account?"
 		a.innerText = "Register"
@@ -50,3 +50,8 @@ function renderToggle(isLoginLayout) {
 		a.innerText = "Login"
 	}
 }
+
+export  function renderButton(isLoginLayout) {
+	document.querySelector("form button").innerText = isLoginLayout ? "Login" : "Register"
+}
+

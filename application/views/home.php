@@ -1,11 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
-<?php
-
-session_start();
-
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,6 +12,12 @@ session_start();
 <body>
 
 <div id="container">
+
+	<h2> Hi <?php echo  $firstname." ". $lastname ?> </h2>
+
+	<h3>This home page </h3>
+
+	<a href="/auth/logout"> Logout  </a>
 
 </div>
 
