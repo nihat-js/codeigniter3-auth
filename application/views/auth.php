@@ -3,12 +3,10 @@
 
 function renderError($msg)
 {
-	echo "line6".$msg;
 	$openTag = '<div class="alert alert-danger" role="alert"> ';
 	$endTag = '</div>';
 	echo $openTag . $msg . $endTag;
 }
-echo"line11".$login_error;
 
 ?>
 

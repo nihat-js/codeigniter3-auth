@@ -65,11 +65,12 @@ class Auth extends CI_Controller
 
 		$this->load->model('user');
 		$result = $this->user->login($email, $password);
-		var_dump("line68",$result);
-
+    
+    
 		if (!isset($result["token"])) {
+      // var_dump("line72",$result);
 			$this->load->view("auth", $result);
-
+      return false;
 		}
 
 		$this->session->set_userdata($result);

@@ -20,8 +20,9 @@ export function appendInput(inputName, labelText, inputType = "text", placeholde
 export function appendButton(){
 	let btn = document.createElement('button')
 	btn.type = "submit"
-	btn.className = "btn btn-primary";
+	btn.className = "btn btn-primary my-3";
 	document.querySelector("form").append(btn)
+  
 }
 
 
@@ -31,8 +32,10 @@ export function appendToggle(){
 	let p = document.createElement("p")
 	let a = document.createElement("a")
 	div.classList = "toggle"
-	p.append(a)
 	a.href = "#"
+  a.style.display = "inline-block"
+  p.style.display = "inline-block"
+  p.classList.add('mr-2')
 	div.append(p, a)
 	document.querySelector("form").append(div)
 }
