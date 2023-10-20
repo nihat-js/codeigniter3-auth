@@ -2,7 +2,7 @@
 
 
 
-export function validate({firstName,lastName,email,password,password2}){
+export function validateRegister({firstName,lastName,email,password,password2}){
 	let errors = {
 
 	}
@@ -28,3 +28,7 @@ export function validate({firstName,lastName,email,password,password2}){
 	return errors
 
 }
+
+// export function validateLogin({}){
+
+// }
